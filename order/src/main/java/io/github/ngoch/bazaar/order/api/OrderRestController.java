@@ -1,11 +1,11 @@
 package io.github.ngoch.bazaar.order.api;
 
 import io.github.ngoch.bazaar.domain.Order;
+import io.github.ngoch.bazaar.order.domain.CustomerOrder;
 import io.github.ngoch.bazaar.order.service.OrderManageService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -26,8 +26,8 @@ public class OrderRestController {
         return order;
     }
 
-    @GetMapping("/all")
-    public List<Order> all() {
-        return orderManageService.getAll();
+    @GetMapping("/test")
+    public List<CustomerOrder> test() {
+        return orderManageService.test();
     }
 }

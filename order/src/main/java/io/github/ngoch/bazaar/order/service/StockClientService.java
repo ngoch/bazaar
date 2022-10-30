@@ -17,8 +17,7 @@ public class StockClientService {
     }
 
     public Order reserve(Order order) {
-        order = restTemplate.postForObject(orderProperties.getStockUrl() + "/stock/reserve", order, Order.class);
-        return order;
+        return restTemplate.postForObject(orderProperties.getStockUrl() + "/stock/reserve", order, Order.class);
     }
 
     public void confirm(Order order) {

@@ -20,7 +20,6 @@ public class CustomerOrderMapper {
         customerOrder.setProductCount(order.getProductCount());
         customerOrder.setPrice(order.getPrice());
         customerOrder.setStatus(order.getStatus());
-        customerOrder.setSource(order.getSource());
         return customerOrder;
     }
 
@@ -36,7 +35,6 @@ public class CustomerOrderMapper {
         order.setProductCount(co.getProductCount());
         order.setPrice(co.getPrice());
         order.setStatus(co.getStatus());
-        order.setSource(co.getSource());
         return order;
     }
 }

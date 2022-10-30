@@ -77,6 +77,7 @@ public class OrderManageService {
 
                     Order finalOrder = confirm(paymentOrder, stockOrder);
                     co.setStatus(finalOrder.getStatus());
+                    co.setSource(finalOrder.getSource());
 
                     stockClientService.confirm(finalOrder);
                     paymentClientService.confirm(finalOrder);
@@ -120,10 +121,10 @@ public class OrderManageService {
         return o;
     }
 
-    public List<Order> getAll() {
-        List<Order> result = new ArrayList<>();
+    public List<CustomerOrder> test() {
+        List<CustomerOrder> result = new ArrayList<>();
         for (CustomerOrder co : orderRepository.findAll()) {
-            result.add(orderMapper.map(co));
+            result.add(co);
         }
         return result;
     }

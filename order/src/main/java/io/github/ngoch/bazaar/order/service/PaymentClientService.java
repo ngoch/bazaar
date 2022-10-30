@@ -17,8 +17,7 @@ public class PaymentClientService {
     }
 
     public Order reserve(Order order) {
-        order = restTemplate.postForObject(orderProperties.getPaymentUrl() + "/payment/reserve", order, Order.class);
-        return order;
+        return restTemplate.postForObject(orderProperties.getPaymentUrl() + "/payment/reserve", order, Order.class);
     }
 
     public void confirm(Order order) {
