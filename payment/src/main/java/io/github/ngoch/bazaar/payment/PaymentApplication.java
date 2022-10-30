@@ -17,10 +17,15 @@ public class PaymentApplication {
     @Bean
     CommandLineRunner initDatabase(CustomerRepository customerRepository) {
         return args -> {
-            Customer c = new Customer();
-            c.setName("Demo Customer");
-            c.setAmountAvailable(500);
-            customerRepository.save(c);
+            Customer c1 = new Customer();
+            c1.setName("Demo Customer");
+            c1.setAmountAvailable(500);
+            customerRepository.save(c1);
+
+            Customer c2 = new Customer();
+            c2.setName("Demo Customer 2");
+            c2.setAmountAvailable(10);
+            customerRepository.save(c2);
         };
     }
 }

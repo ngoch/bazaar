@@ -1,8 +1,11 @@
 package io.github.ngoch.bazaar.stock.api;
 
 import io.github.ngoch.bazaar.domain.Order;
+import io.github.ngoch.bazaar.stock.domain.Product;
 import io.github.ngoch.bazaar.stock.service.OrderManageService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/stock")
 @RestController
@@ -15,8 +18,8 @@ public class StockRestController {
     }
 
     @GetMapping("/test")
-    public String test() {
-        return "Test payment";
+    public List<Product> test() {
+        return orderManageService.test();
     }
 
     @PostMapping("/reserve")

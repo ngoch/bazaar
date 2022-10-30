@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -79,8 +80,13 @@ public class OrderManageService {
                     co.setStatus(finalOrder.getStatus());
                     co.setSource(finalOrder.getSource());
 
-                    stockClientService.confirm(finalOrder);
-                    paymentClientService.confirm(finalOrder);
+                    if (!Objects.equals(finalOrder.getSource(), "STOCK")) {
+                        stockClientService.confirm(finalOrder);
+                    }
+
+                    if (!Objects.equals(finalOrder.getSource(), "PAYMENT")) {
+                        paymentClientService.confirm(finalOrder);
+                    }
 
                     updateCustomerOrder(co);
                     log.info("Processed:" + co);

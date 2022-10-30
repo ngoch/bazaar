@@ -17,11 +17,17 @@ public class StockApplication {
     @Bean
     CommandLineRunner initDatabase(ProductRepository productRepository) {
         return args -> {
-            Product p = new Product();
-            p.setName("Demo Product");
-            p.setAvailableItems(2);
-            p.setReservedItems(0);
-            productRepository.save(p);
+            Product p1 = new Product();
+            p1.setName("Demo Product");
+            p1.setAvailableItems(2);
+            p1.setReservedItems(0);
+            productRepository.save(p1);
+
+            Product p2 = new Product();
+            p2.setName("Demo Product");
+            p2.setAvailableItems(10);
+            p2.setReservedItems(0);
+            productRepository.save(p2);
         };
     }
 }

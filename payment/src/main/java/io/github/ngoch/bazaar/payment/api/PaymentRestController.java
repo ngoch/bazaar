@@ -1,8 +1,11 @@
 package io.github.ngoch.bazaar.payment.api;
 
 import io.github.ngoch.bazaar.domain.Order;
+import io.github.ngoch.bazaar.payment.domain.Customer;
 import io.github.ngoch.bazaar.payment.service.OrderManageService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequestMapping("/payment")
 @RestController
@@ -15,8 +18,8 @@ public class PaymentRestController {
     }
 
     @GetMapping("/test")
-    public String test() {
-        return "Test payment";
+    public List<Customer> test() {
+        return orderManageService.test();
     }
 
     @PostMapping("/reserve")
