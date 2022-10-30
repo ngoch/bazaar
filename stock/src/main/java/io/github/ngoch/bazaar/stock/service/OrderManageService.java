@@ -19,18 +19,20 @@ public class OrderManageService {
     }
 
     public Order reserve(Order order) {
+        order.setSource(SOURCE);
         Product product = repository.findById(order.getProductId()).orElseThrow();
         log.info("Found: {}", product);
         if (order.getStatus().equals("NEW")) {
-            if (order.getProductCount() < product.getAvailableItems()) {
+            if (order.getProductCount() <= product.getAvailableItems()) {
                 product.setReservedItems(product.getReservedItems() + order.getProductCount());
                 product.setAvailableItems(product.getAvailableItems() - order.getProductCount());
-                order.setStatus("ACCEPT");
                 repository.save(product);
+                order.setStatus("ACCEPT");
             } else {
                 order.setStatus("REJECT");
             }
 
+            //TODO "save order"
             log.info("Sent: {}", order);
         }
 
@@ -44,8 +46,8 @@ public class OrderManageService {
             product.setReservedItems(product.getReservedItems() - order.getProductCount());
             repository.save(product);
         } else if (order.getStatus().equals("ROLLBACK") && !order.getSource().equals(SOURCE)) {
-            product.setReservedItems(product.getReservedItems() - order.getProductCount());
-            product.setAvailableItems(product.getAvailableItems() + order.getProductCount());
+            product.setReservedItems(product.getReservedItems() == 0 ? 0 : (product.getReservedItems() - order.getProductCount()));
+            product.setAvailableItems(product.getReservedItems() == 0 ? 0 : (product.getAvailableItems() + order.getProductCount()));
             repository.save(product);
         }
         return order;

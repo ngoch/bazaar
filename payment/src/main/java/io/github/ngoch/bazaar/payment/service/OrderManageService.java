@@ -18,18 +18,20 @@ public class OrderManageService {
     }
 
     public Order reserve(Order order) {
+        order.setSource(SOURCE);
+
         Customer customer = repository.findById(order.getCustomerId()).orElseThrow();
         log.info("Found: {}", customer);
-        if (order.getPrice() < customer.getAmountAvailable()) {
+        if (order.getPrice() <= customer.getAmountAvailable()) {
             order.setStatus("ACCEPT");
             customer.setAmountReserved(customer.getAmountReserved() + order.getPrice());
-            customer.setAmountAvailable(customer.getAmountAvailable() - order.getPrice());
+            customer.setAmountAvailable(customer.getAmountAvailable() == 0 ? 0 : customer.getAmountAvailable() - order.getPrice());
+            repository.save(customer);
         } else {
             order.setStatus("REJECT");
         }
-        order.setSource(SOURCE);
-        repository.save(customer);
 
+        //TODO save order
         log.info("Sent: {}", order);
 
         return order;
@@ -42,8 +44,8 @@ public class OrderManageService {
             customer.setAmountReserved(customer.getAmountReserved() - order.getPrice());
             repository.save(customer);
         } else if (order.getStatus().equals("ROLLBACK") && !order.getSource().equals(SOURCE)) {
-            customer.setAmountReserved(customer.getAmountReserved() - order.getPrice());
-            customer.setAmountAvailable(customer.getAmountAvailable() + order.getPrice());
+            customer.setAmountReserved(customer.getAmountReserved() == 0 ? 0 : (customer.getAmountReserved() - order.getPrice()));
+            customer.setAmountAvailable(customer.getAmountReserved() == 0 ? 0 : (customer.getAmountAvailable() + order.getPrice()));
             repository.save(customer);
         }
         return order;
