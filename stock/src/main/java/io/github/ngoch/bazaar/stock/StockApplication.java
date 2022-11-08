@@ -19,7 +19,7 @@ public class StockApplication {
         return args -> {
             Product p1 = new Product();
             p1.setName("Demo Product");
-            p1.setAvailableItems(2);
+            p1.setAvailableItems(2000);
             p1.setReservedItems(0);
             productRepository.save(p1);
 

@@ -19,7 +19,7 @@ public class PaymentApplication {
         return args -> {
             Customer c1 = new Customer();
             c1.setName("Demo Customer");
-            c1.setAmountAvailable(500);
+            c1.setAmountAvailable(5000);
             customerRepository.save(c1);
 
             Customer c2 = new Customer();
